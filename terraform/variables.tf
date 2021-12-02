@@ -14,3 +14,19 @@ variable "availability_zone_1" {}
 variable "dmzin_subnet_zone_1" {}
 variable "dmzout_subnet_zone_1" {}
 variable "admin_subnet_zone_1" {}
+
+# -- --
+# -- ec2 user
+variable "ec2_user" {}
+variable "public_key_path" {}
+variable "private_key_path" {}
+
+# -- --
+# -- ec2 ami image id
+variable "ami" {
+    type = map(string)
+
+    default = {
+        us-east-2 = "ami-0629230e074c580f2"
+    }
+}
