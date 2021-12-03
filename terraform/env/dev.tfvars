@@ -16,6 +16,6 @@ dmzout_subnet_zone_1 = "10.1.0.128/26"
 admin_subnet_zone_1 = "10.1.0.192/26"
 
 # -- ec2 user for vm provisioning
-ec2_user = "abienkow"
+ec2_user = "ubuntu"
 public_key_path = "~/.ssh/aws-id_rsa.pub"
 private_key_path = "~/.ssh/aws-id_rsa"
