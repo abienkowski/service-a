@@ -1,0 +1,21 @@
+---
+version: '3.8'
+
+networks:
+  nginx:
+
+services:
+
+  nginx:
+    image: nginx-service:latest
+    #image: nginx:latest
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+    ports:
+      - target: 80
+        published: 80
+    networks:
+      nginx:
+    
