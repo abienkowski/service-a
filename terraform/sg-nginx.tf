@@ -6,16 +6,16 @@ resource "aws_security_group" "nginx_sg" {
     description = "SSH ,HTTP"
 
     # -- -- -- --
-#    egress {
-#      cidr_blocks      = [
-#        "0.0.0.0/0",
-#      ]
-#      description      = "default egress"
-#      from_port        = 0
-#      protocol         = "-1"
-#      to_port          = 0
-#      self             = false
-#    }
+    egress {
+      cidr_blocks      = [
+        "0.0.0.0/0",
+      ]
+      description      = "default egress enables all outgoing traffic; for testing only, not recommanded for production"
+      from_port        = 0
+      protocol         = "-1"
+      to_port          = 0
+      self             = false
+    }
 
     # -- -- -- --
     ingress {
