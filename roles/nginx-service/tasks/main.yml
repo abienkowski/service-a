@@ -1,0 +1,25 @@
+---
+- name: Install Required Packages
+  # -- https://docs.ansible.com/ansible/latest/collections/ansible/builtin/package_module.html
+  package:
+    name: python3-pip
+
+- name: Packages Requries for Swarm Setup
+  # -- https://docs.ansible.com/ansible/latest/collections/ansible/builtin/pip_module.html
+  pip:
+    name: docker
+
+- name: Configure Swarm
+  include: init_swarm.yml
+
+- name: Deploy docker compose file
+  # -- https://docs.ansible.com/ansible/latest/modules/copy_module.html
+  copy:
+    src: "~/wa/service-a/docker-stack.yml"
+    dest: "/tmp/docker-stack.yml"
+    mode: 0644
+
+- name: Start Nginx-Service
+  shell:
+    cmd: docker stack deploy -c /tmp/docker-stack.yml nginx-service
+    creates: /var/lib/docker/containers/nginx-service

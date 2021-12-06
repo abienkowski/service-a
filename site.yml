@@ -1,0 +1,18 @@
+---
+  - name: Provision Nginx Node
+    hosts: 
+      - all
+    become: true
+    gather_facts: true
+
+    vars:
+      docker_users:
+        - ubuntu
+
+    pre_tasks:
+      - debug:
+          msg: "host: {{ inventory_hostname }} family: {{ ansible_os_family }} distro: {{ ansible_distribution }}"
+
+    roles:
+      - { role: 'docker', tags: 'docker' }
+      - { role: 'nginx-service', tags: 'nginx' }
