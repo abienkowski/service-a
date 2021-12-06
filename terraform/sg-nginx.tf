@@ -37,5 +37,9 @@ resource "aws_security_group" "nginx_sg" {
         to_port          = 22
         protocol         = "tcp"
     }
+
+    tags = {
+      Name = "${var.vpc_name}-nginx-sg"
+    }
 }
 
