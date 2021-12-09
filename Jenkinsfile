@@ -22,12 +22,10 @@ pipeline {
         agent { label 'terraform' }
         steps {
           withAWS(credentials: "awscreds") {
-            dir("terraform") {
               sh """
                 printenv | grep AWS
-                /bin/bash cd-deploy-infra.sh apply
+                /bin/ash cd-deploy-infra.sh apply
               """
-            }
           }
         }
       }
@@ -47,11 +45,9 @@ pipeline {
         agent { label 'terraform' }
         steps {
           withAWS(credentials: "awscreds") {
-            dir("terraform") {
               sh """
-                /bin/bash cd-deploy-infra.sh destroy
+                /bin/ash cd-deploy-infra.sh destroy
               """
-            }
           }
         }
       }
