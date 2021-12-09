@@ -5,7 +5,7 @@ region = "us-east-2"
 availability_zone_1 = "us-east-2a"
 
 # -- vpc name
-vpc_name = "dev-abienkow"
+vpc_name = "dev-jenkins"
 
 # -- vpc ip range
 vpc_cidr = "10.1.0.0/16"
@@ -17,4 +17,4 @@ admin_subnet_zone_1 = "10.1.0.192/26"
 
 # -- ec2 user for vm provisioning
 ec2_user = "ubuntu"
-sshkey_name = "abienkow"
+sshkey_name = "jenkins"

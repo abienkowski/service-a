@@ -6,5 +6,5 @@ output "eip_nginx" {
 }
 output "ssh_connection" {
   description = "To view the served image please paste the IP into your browser"
-  value       = format("ssh -i %s ubuntu@%s",var.private_key_path,aws_instance.nginx.public_ip)
+  value       = format("ssh -i %s ubuntu@%s",var.private_key_path,aws_eip.nginx_eip_zone_1.public_ip)
 }

@@ -7,7 +7,7 @@ docker build . -t nginx-service
 docker run -d --name nginx-service --network jenkins nginx-service
 sleep 60
 curl -o /tmp/index.html http://nginx-service
-diff /tmp/index.html index.html
+diff /tmp/index.html app/index.html
 # -- cleanup build artifacts
 docker rm -f nginx-service
 docker rmi nginx-service

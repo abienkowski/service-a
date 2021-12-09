@@ -18,7 +18,7 @@ resource "aws_instance" "nginx" {
   ]
 
   # -- ssh key for provisioning
-  key_name = "${aws_key_pair.ssh-key.id}"
+  key_name = data.aws_key_pair.ssh-key.id
 
   tags = {
     Name = "${var.vpc_name}-nginx"
