@@ -18,7 +18,7 @@ sleep 60
 
 echo "Verifying Service ..."
 curl -o downloaded-index.html http://nginx-service
-diff /tmp/index.html app/index.html
+diff downloaded-index.html app/index.html
 
 echo "Removing build artifacts ..."
 # -- cleanup image and running container

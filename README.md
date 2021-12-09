@@ -20,3 +20,9 @@ docker push nginx-service
 ```
 ansible-playbook -i inventory site.yml
 ```
+
+## Jenkins Installed Plugins
+
+- AnsiColor
+- Pipeline: Step AWS
+- Cloudbees AWS Credentails

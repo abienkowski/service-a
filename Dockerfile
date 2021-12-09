@@ -6,8 +6,8 @@ FROM nginx:latest
 #RUN rm -f /etc/nginx/conf.d/default.conf
 
 # -- copy over nginx config
-COPY conf/service-a.conf /etc/nginx/conf.d/service-a.conf
+COPY app/conf/service-a.conf /etc/nginx/conf.d/service-a.conf
 
 # -- copy image
-COPY index.html /usr/share/nginx/html/index.html
-COPY ./images/ /usr/share/nginx/html/images/
+COPY app/index.html /usr/share/nginx/html/index.html
+COPY app/images/ /usr/share/nginx/html/images/
