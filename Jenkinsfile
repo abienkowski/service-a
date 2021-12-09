@@ -1,6 +1,6 @@
-# -- --
-# -- CI/CD pipeline for service-a
-# -- NOTE: this pipeline has not been fully tested
+/* -- --
+   -- CI/CD pipeline for service-a
+*/
 pipeline {
 
   agent none;
