@@ -1,6 +1,6 @@
 #!/bin/bash
 
-set -ex
+set -e
 
 # -- NOTE: this script is to be executed inside Jenins pipeline
 # -- it is expecting jenkins network to exist
@@ -10,7 +10,12 @@ docker build . -t nginx-service
 
 echo "Running container  ..."
 # -- make sure the container does not exist
-docker rm -f nginx-service
+set +e
+STATS=$(docker container stats --no-stream nginx-service 2>1)
+if [ $? -eq 0 ]; then
+  docker rm -f nginx-service
+fi
+set -e
 # -- spin up the instance on the same network as jenkins
 docker run -d --name nginx-service --network jenkins nginx-service
 # -- 60s delay after container start
