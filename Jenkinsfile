@@ -5,6 +5,10 @@ pipeline {
 
   agent none;
 
+  options {
+    ansiColor('xterm')
+  }
+
     stages {
 
       stage("Build Image and Test Image") {
