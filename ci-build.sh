@@ -1,10 +1,12 @@
 #!/bin/bash
 
+# -- NOTE: this script is to be executed inside Jenins pipeline
+# -- it is expecting jenkins network to exist
+
 docker build . -t nginx-service
-docker run -d --name nginx-service -p 80 nginx-service
+docker run -d --name nginx-service --network jenkins nginx-service
 sleep 60
-nc -vzw5 localhost 80
-curl -o /tmp/index.html localhost
+curl -o /tmp/index.html http://nginx-service
 diff /tmp/index.html index.html
 # -- cleanup build artifacts
 docker rm -f nginx-service
