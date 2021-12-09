@@ -21,9 +21,10 @@ pipeline {
       stage("Deploy Infrastructure") {
         agent { label 'terraform' }
         steps {
-          withCredentials() {
+          withAWS(credentials: "awscreds") {
             dir("terraform") {
               sh """
+                printenv | grep AWS
                 /bin/bash cd-deploy-infra.sh apply
               """
             }
@@ -45,7 +46,7 @@ pipeline {
       stage("clean up") {
         agent { label 'terraform' }
         steps {
-          withCredentials() {
+          withAWS(credentials: "awscreds") {
             dir("terraform") {
               sh """
                 /bin/bash cd-deploy-infra.sh destroy
