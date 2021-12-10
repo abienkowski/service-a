@@ -14,4 +14,4 @@ cd terraform
 
 # -- execute terraform configuration
 terraform init
-terraform $CMD $AUTO_APPROVE -var-file=env/dev.tfvars
+terraform $CMD $AUTO_APPROVE -var-file=env/jenkins.tfvars
