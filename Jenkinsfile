@@ -40,11 +40,12 @@ pipeline {
 
       stage("Deploy Service") {
         steps {
-            ansiblePlaybook(
-                credentialsId: 'jenins-ssh-key',
-                playbook: 'site.yml',
-                disableHostKeyChecking: true
-            )
+            ansiblePlaybook('site.yml') {
+                credentialsId('jenins-ssh-key')
+                hostPattern('tag_Name_dev_jenkins_nginx')
+                colorizedOutput(true)
+                hostKeyChecking(true)
+            }
         }
       }
 
