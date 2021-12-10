@@ -39,13 +39,12 @@ pipeline {
       }
 
       stage("Deploy Service") {
-        agent { label 'ansible' }
         steps {
-          sshagent() {
-              sh """
-                /bin/bash cd-deploy-service.sh
-              """
-          }
+            ansiblePlaybook(
+                credentialsId: 'jenins-ssh-key',
+                playbook: 'site.yml',
+                disableHostKeyChecking: true
+            )
         }
       }
 
