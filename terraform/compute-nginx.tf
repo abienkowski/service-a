@@ -10,7 +10,7 @@ resource "aws_instance" "nginx" {
 #associate_public_ip_address = true
 
   # -- vpc subnet
-  subnet_id = "${aws_subnet.dmzin_zone_1.id}"
+  subnet_id = aws_subnet.dmzin_zone_1.id
 
   # -- security groups
   vpc_security_group_ids = [
@@ -18,7 +18,7 @@ resource "aws_instance" "nginx" {
   ]
 
   # -- ssh key for provisioning
-  key_name = data.aws_key_pair.ssh-key.id
+  key_name = var.key_name
 
   tags = {
     Name = "${var.vpc_name}-nginx"
