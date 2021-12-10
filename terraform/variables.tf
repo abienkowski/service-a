@@ -18,6 +18,7 @@ variable "admin_subnet_zone_1" {}
 # -- --
 # -- ec2 user
 variable "ec2_user" {}
+variable "key_name" {}
 
 # -- --
 # -- ec2 ami image id
