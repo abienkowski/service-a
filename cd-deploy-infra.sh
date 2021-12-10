@@ -1,12 +1,14 @@
 #!/bin/bash
 
+set -ex
+
 # -- apply or destroy
 CMD=${1:-'apply'}
 
 # -- check if running in a terminal
-AUTO_APPROVE=""
+AUTO_APPROVE="-auto-approve"
 if [ -t 0 ]; then
-  AUTO_APPROVE="-auto-approve"
+  AUTO_APPROVE=""
 fi
 
 # -- run terrafrom from terrafrom folder
