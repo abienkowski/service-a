@@ -3,7 +3,7 @@
 resource "aws_instance" "jenkins" {
 
   ami = data.aws_ami.ubuntu1804.id
-  instance_type = "t2.micro"
+  instance_type = "t2.small"
 
 # -- NOTE: this does not solve the problem of assocciation of eip
 # -- it assigns a different public ip to the instance
