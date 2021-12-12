@@ -61,7 +61,7 @@ pipeline {
     stage("clean up") {
       agent { label 'terraform' }
       steps {
-        sleep $DELAY_BEFORE_CLEANUP
+        sleep params.DELAY_BEFORE_CLEANUP
         withAWS(credentials: "awscreds") {
           sh '''
             /bin/ash cd-deploy-infra.sh destroy
