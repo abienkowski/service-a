@@ -19,7 +19,7 @@
 - name: Deploy docker compose file
   # -- https://docs.ansible.com/ansible/latest/modules/copy_module.html
   copy:
-    src: "~/wa/service-a/docker-stack.yml"
+    src: "docker-stack.yml"
     dest: "/tmp/docker-stack.yml"
     mode: 0644
 
