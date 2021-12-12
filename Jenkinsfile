@@ -50,7 +50,7 @@ pipeline {
           sshagent(credentials: ["jenkins-ssh-key"]) {
             sh '''
               ansible-inventory -i inventory --graph
-              ansible-playbook -i inventory -l tag_Name_dev_jenkins_nginx site.yml
+              ansible-playbook -i inventory -l tag_Name_dev_jenkins_nginx --tags docker,nginx site.yml
             '''
           }
         }
