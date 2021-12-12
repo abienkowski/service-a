@@ -24,9 +24,9 @@ pipeline {
       agent { label 'docker' }
       steps {
         script {
-          sh """
+          sh '''
             /bin/bash ci-build.sh
-          """
+          '''
         }
       }
     }
@@ -35,10 +35,10 @@ pipeline {
       agent { label 'terraform' }
       steps {
         withAWS(credentials: "awscreds") {
-          sh """
+          sh '''
             printenv | grep AWS
             /bin/ash cd-deploy-infra.sh apply
-          """
+          '''
         }
       }
     }
@@ -47,10 +47,12 @@ pipeline {
       agent { label 'ansible' }
       steps {
         withAWS(credentials: "awscreds") {
-          sh """
-            ansible-inventory -i inventory --graph
-            ansible-playbook -i inventory -l tag_Name_dev_jenkins_nginx site.yml
-          """
+          sshagent(credentials: ["jenkins-ssh-key"]) {
+            sh '''
+              ansible-inventory -i inventory --graph
+              ansible-playbook -i inventory -l tag_Name_dev_jenkins_nginx site.yml
+            '''
+          }
         }
       }
     }
@@ -60,9 +62,9 @@ pipeline {
       steps {
         sleep $DELAY_BEFORE_CLEANUP
         withAWS(credentials: "awscreds") {
-          sh """
+          sh '''
             /bin/ash cd-deploy-infra.sh destroy
-          """
+          '''
         }
       }
     }

@@ -18,11 +18,12 @@ docker push nginx-service
 ## To deploy the service
 
 ```
-ansible-playbook -i inventory site.yml
+ansible-playbook -i inventory -l tag_Name_${var.vpc_name}-nginx site.yml
 ```
 
 ## Jenkins Installed Plugins
 
 - AnsiColor
-- Pipeline: Step AWS
 - Cloudbees AWS Credentails
+- Pipeline: Step AWS
+- SSH-Agent
