@@ -3,7 +3,7 @@
  */
 pipeline {
 
-  agent none;
+  agent any;
 
   options {
     ansiColor('xterm')
@@ -14,6 +14,10 @@ pipeline {
       ))
   }
 
+  parameters {
+    string(name: 'DELAY_BEFORE_CLEANUP', defaultValue: '60', description: 'Seconds to wait before cleanup stage')
+  }
+
   stages {
 
     stage("Build Image and Test Image") {
@@ -22,7 +26,7 @@ pipeline {
         script {
           sh """
             /bin/bash ci-build.sh
-            """
+          """
         }
       }
     }
@@ -34,7 +38,7 @@ pipeline {
           sh """
             printenv | grep AWS
             /bin/ash cd-deploy-infra.sh apply
-            """
+          """
         }
       }
     }
@@ -45,8 +49,8 @@ pipeline {
         withAWS(credentials: "awscreds") {
           sh """
             ansible-inventory -i inventory --graph
-            ansible-playbook -i inventory tag_Name_dev_jenkins_nginx site.yml
-            """
+            ansible-playbook -i inventory -l tag_Name_dev_jenkins_nginx site.yml
+          """
         }
       }
     }
@@ -54,10 +58,11 @@ pipeline {
     stage("clean up") {
       agent { label 'terraform' }
       steps {
+        sleep $DELAY_BEFORE_CLEANUP
         withAWS(credentials: "awscreds") {
           sh """
             /bin/ash cd-deploy-infra.sh destroy
-            """
+          """
         }
       }
     }
