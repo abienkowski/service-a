@@ -1,9 +1,12 @@
 ---
+- name: Update Package Repositories
+  apt:
+    update_cache: true
+
 - name: Install Required Packages
   # -- https://docs.ansible.com/ansible/latest/collections/ansible/builtin/package_module.html
   package:
     name: python3-pip
-    state: latest
 
 - name: Packages Requries for Swarm Setup
   # -- https://docs.ansible.com/ansible/latest/collections/ansible/builtin/pip_module.html
