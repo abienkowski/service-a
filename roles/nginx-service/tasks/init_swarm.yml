@@ -12,6 +12,9 @@
         state: present
       register: init_swarm
 
+    - debug:
+        msg: "{{ init_swarm }}"
+
     - name: "set fact: join token worker"
       set_fact:
         join_token_worker: "{{ init_swarm.swarm_facts.JoinTokens.Worker }}"
