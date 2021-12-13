@@ -1,0 +1,95 @@
+---
+version: '3.8'
+
+networks:
+  jenkins:
+    external: true
+
+volumes:
+  jenkins:
+    external: true
+
+services:
+
+  jenkins:
+    image: jenkins/jenkins:2.303.3
+    networks:
+      jenkins:
+        aliases:
+          - jenkins
+    ports:
+      - target: 8080
+        published: 8080
+        protocol: http
+        mode: host
+    volumes:
+      - jenkins:/var/jenkins_home
+
+  agent-docker:
+    image: jenkins/jnlp-agent-docker
+    environment:
+      JENKINS_URL: http://jenkins:8080
+      JENKINS_AGENT_NAME: agent-docker
+      JENKINS_SECRET: 481aaad6c849766dffd41f45e23124f24ac103319001909ddc308a55809dc000
+      JENKINS_TUNNEL: jenkins:50000
+      DOCKER_HOST: tcp://docker-socket-proxy:2375
+    networks:
+      - jenkins
+
+  agent-terraform:
+    image: jenkins/jnlp-agent-terraform
+    environment:
+      JENKINS_URL: http://jenkins:8080
+      JENKINS_AGENT_NAME: agent-terraform
+      JENKINS_SECRET: c1165d2d8ddcbbee289c38c1e89d133c8e44298eea29d6a75a65c8a0d052e6fc
+      JENKINS_TUNNEL: jenkins:50000
+    networks:
+      - jenkins
+
+  agent-jenkins:
+    image: jenkins/inbound-agent:4.10-3
+    environment:
+      JENKINS_URL: http://jenkins:8080
+      JENKINS_AGENT_NAME: agent-jenkins
+      JENKINS_SECRET: 1df88bc960c7439dd2a350ef31258301dfb4286227e50103f5ab09be59828276
+      JENKINS_TUNNEL: jenkins:50000
+    networks:
+      - jenkins
+
+  agent-ansible:
+    image: abienkowski/inbound-agent-ansible:4.10-3
+    environment:
+      JENKINS_URL: http://jenkins:8080
+      JENKINS_AGENT_NAME: agent-ansible
+      JENKINS_SECRET: afb5bff07be6c76a13d45daaee3dfe221dd550a530577c8dbc1a649eead0bc4a
+      JENKINS_TUNNEL: jenkins:50000
+    networks:
+      - jenkins
+
+  docker-socket-proxy:
+    image: tecnativa/docker-socket-proxy
+    environment:
+      BUILD: 1
+      COMMIT: 0
+      CONFIGS: 1
+      CONTAINERS: 0
+      DISTRIBUTION: 1
+      EXEC: 0
+      IMAGES: 1
+      INFO: 1
+      NETWORKS: 1
+      NODES: 1
+      PLUGINS: 0
+      POST: 1
+      SERVICES: 1
+      SESSION: 0
+      SWARM: 1
+      SYSTEM: 0
+      TASKS: 1
+      VOLUMES: 0
+    networks:
+      jenkins:
+        aliases:
+          - docker-socket-proxy
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
